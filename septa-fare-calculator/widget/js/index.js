@@ -10,7 +10,7 @@ const setHelperText = (txt) => {
 }
 
 const setRideTotal = (total) => {
-	document.getElementById("rideTotal").innerHTML = '$ ' +total;
+	document.getElementById("rideTotal").innerHTML = '$ ' +total.toFixed(2);
 }
 
 
@@ -30,16 +30,37 @@ const handleChange = () => {
 	let wherePurchased = document.querySelector('input[name="wherePurchased"]:checked').value;
 	let ridesNeeded = parseInt(document.getElementById("ridesNeeded").value);
 	
-	console.log(fromZone, whenRiding);
-	console.log(whenRiding);
-	console.log(wherePurchased);
-	console.log(ridesNeeded);
+	//if ridesNeeded is zero, default to one
+	if(!parseInt(ridesNeeded)){
+		document.getElementById("ridesNeeded").value = 1;
+		ridesNeeded = 1;
+	}
 	
 	//update helper text
 	setHelperText(helperTexts[whenRiding]);
 	
 	//update cost
+	let zone = (fares.zones.filter((zone) => zone.zone == fromZone))[0];
+	let fare = (zone.fares.filter((fare) => fare.type == whenRiding && fare.purchase == wherePurchased))[0];
+	let totalFare = 0.00;
 	
+	if(fare && typeof fare !== 'undefined'){
+		//determine cost for combination
+		if(fare.type == "anytime" && fare.purchase == "advance_purchase" && ridesNeeded != 10){
+			alert("This type of fare is discounted and requires a bulk purchase of 10 rides");
+			document.getElementById("ridesNeeded").value = 10;
+			totalFare = fare.price;
+		}else{
+			totalFare = ridesNeeded * fare.price;
+		}
+		
+		//update cost to layout
+		setRideTotal(totalFare);
+		
+	}else{
+		alert("Fare not available for this ride, please try again");
+		setRideTotal(0);
+	}
 }
 
 
