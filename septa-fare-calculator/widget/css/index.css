@@ -29,7 +29,8 @@ font-family: 'Purista', 'Open Sans', sans-serif;
 	background: #f5f5f5;
 	border:1px soid #afafaf;
 	width: 100%;
-	max-width: 300px;
+	max-width: 350px;
+	min-width: 200px;
 }
 
 .widgetHeader{
@@ -43,18 +44,36 @@ font-family: 'Purista', 'Open Sans', sans-serif;
 .widgetContent{
 	text-align: center;
 	padding: 15px;	
+	border-bottom:1px solid #cfcfcf;
 }
 
 .widgetContent .title{
-margin-bottom: 7px;
+	margin-bottom: 7px;
 }
 
-.niceSelect{
+.widgetContent .radioWrapper{
+	text-align: left;
+	width: 50%;
+	min-width: 150px;
+}
+
+.result{
+	color: #ffffff;
+	background: #595959;
+}
+
+.niceInput{
 width: 80%;	
 font-size:110%;
 padding:7px;
 }
 
+.helperText{
+font-size: 80%;
+color:#cfcfcf;	
+padding: 7px;
+}
+	
 .blocky{
 	display: inline-block;
 	box-sizing: border-box;

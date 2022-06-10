@@ -3,12 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SEPTA Regional Rail Fare Calculator</title>
-	<!-- these are the includes for the logi and style for this widget 'component' -->
+	<!-- these are the includes for the logic and style for this widget 'component'. -->
 	<link rel="stylesheet" href="widget/css/index.css">
 	<script src="widget/js/index.js"></script>
 </head>
 <body>
-	
 	<div class="widgetWrapper">
 		<div class="widgetHeader">
 			<div class="blocky">
@@ -21,17 +20,44 @@
 		<div class="widgetContent">
 			<div class="title">Where are you going?</div>
 			
-			<select id="from" class="niceSelect">
-				<option>stuff</option>
+			<select id="fromZone" class="niceInput" onChange="handleChange()">
+				<option>Loading...</option>
 			</select>
 		</div>
 		<div class="widgetContent">
+			<div class="title">When are you riding?</div>
+			
+			<select id="whenRiding" class="niceInput" onChange="handleChange()">
+				<option value="weekday">Weekday</option>
+				<option value="evening_weekend">Evening/Weekend</option>
+				<option value="anytime">Anytime</option>
+			</select>
+			
+			<div class="helperText" id="helperText">
+			
+			</div>
+			
 		</div>
 		<div class="widgetContent">
+			<div class="title">Where will you purchase the fare?</div>
+			<center>
+				<div class="radioWrapper">
+					<input type="radio" id="kiosk" name="wherePurchased" value="advance_purchase" onChange="handleChange()" checked>
+					<label for="kiosk">Station Kiosk</label>
+					<br>
+					<input type="radio" id="onboard" name="wherePurchased" value="onboard_purchase" onChange="handleChange()">
+					<label for="onboard">Onboard</label>
+				</div>
+			</center>
 		</div>
 		<div class="widgetContent">
+			<div class="title">How many rides will you need?</div>
+			<input type="number" class="niceInput" value="0" id="ridesNeeded" onChange="handleChange()">
+		</div>
+		<div class="widgetContent result">
+			<h4>Your fare will cost:</h4>
+			<h3 id="rideTotal">$ 0.00</h3>
 		</div>
 	</div>
-	
 </body>
 </html>
