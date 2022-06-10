@@ -55,8 +55,7 @@ const handleChange = () => {
 		//determine cost for combination
 		if(fare.type == "anytime" && fare.purchase == "advance_purchase" && fare.trips == 10){
 			
-			/* I wasnt too clear if the discounted rate should be forced to 10 or if it should simiply be 
-			divided by 10 to get the individual price, but i went for the first option */
+			/* I forced the discouted rate to 10 fares needed and notified the user with alert */
 			
 			alert("This type of fare is discounted and requires a bulk purchase of 10 rides");
 			//force rides to 10 if not 10
