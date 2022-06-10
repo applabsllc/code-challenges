@@ -9,12 +9,13 @@ const setHelperText = (txt) => {
 	document.getElementById("helperText").innerHTML = txt;
 }
 
+//function to set total
 const setRideTotal = (total) => {
 	document.getElementById("rideTotal").innerHTML = '$ ' +total.toFixed(2);
 }
 
 
-//function to build select options based on json response
+//function to build select options based on initial json response
 const buildSelect1Options = (fares) => {
 	let temp = '';
 	fares.zones.map((zone) => {
@@ -23,8 +24,14 @@ const buildSelect1Options = (fares) => {
 	document.getElementById("fromZone").innerHTML = temp;
 }
 
+//handle any change in the form
 const handleChange = () => {
 	
+	if(!faresLoaded){
+		return;
+	}
+	
+	//get current values
 	let fromZone = document.getElementById("fromZone").value;
 	let whenRiding = document.getElementById("whenRiding").value;
 	let wherePurchased = document.querySelector('input[name="wherePurchased"]:checked').value;
@@ -46,9 +53,16 @@ const handleChange = () => {
 	
 	if(fare && typeof fare !== 'undefined'){
 		//determine cost for combination
-		if(fare.type == "anytime" && fare.purchase == "advance_purchase" && ridesNeeded != 10){
+		if(fare.type == "anytime" && fare.purchase == "advance_purchase" && fare.trips == 10){
+			
+			/* I wasnt too clear if the discounted rate should be forced to 10 or if it should simiply be 
+			divided by 10 to get the individual price, but i went for the first option */
+			
 			alert("This type of fare is discounted and requires a bulk purchase of 10 rides");
+			//force rides to 10 if not 10
+			if(ridesNeeded != 10)
 			document.getElementById("ridesNeeded").value = 10;
+		
 			totalFare = fare.price;
 		}else{
 			totalFare = ridesNeeded * fare.price;
@@ -58,6 +72,7 @@ const handleChange = () => {
 		setRideTotal(totalFare);
 		
 	}else{
+		//if not found, display error message
 		alert("Fare not available for this ride, please try again");
 		setRideTotal(0);
 	}

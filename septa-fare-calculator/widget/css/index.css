@@ -89,4 +89,11 @@ padding: 7px;
 	height: 32px;
 }
 
+.shorterInput{
+	width: 40%;
+}
+
+.centeredInput{
+	text-align: center;
+}
 
